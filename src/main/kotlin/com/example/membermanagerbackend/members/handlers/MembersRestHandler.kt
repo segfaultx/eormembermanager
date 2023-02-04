@@ -16,10 +16,9 @@ class MembersRestHandler(private val memberService: MemberService) {
         return ServerResponse.ok().body(fromProducer(memberService.findAll(), Member::class.java))
     }
 
-    fun createMember(request: ServerRequest): Mono<ServerResponse> {
-        return request.bodyToMono(MemberCreationRequest::class.java)
-            .map { Member(MemberCompositeId(it.name, it.server)) }
-            .map { memberService.save(it) }
-            .flatMap { ServerResponse.ok().body(it, Member::class.java) }
+    fun createMember(request: MemberCreationRequest): Mono<ServerResponse> {
+        val entity = memberService.save(Member(MemberCompositeId(request.name, request.server)))
+
+        return ServerResponse.ok().body(fromProducer(entity, Member::class.java))
     }
 }
