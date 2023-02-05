@@ -1,7 +1,6 @@
 package com.example.membermanagerbackend.members.handlers
 
 import com.example.membermanagerbackend.members.model.Member
-import com.example.membermanagerbackend.members.model.MemberCompositeId
 import com.example.membermanagerbackend.members.service.MemberService
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.BodyInserters.fromProducer
@@ -17,7 +16,7 @@ class MembersRestHandler(private val memberService: MemberService) {
     }
 
     fun createMember(request: MemberCreationRequest): Mono<ServerResponse> {
-        val entity = memberService.save(Member(MemberCompositeId(request.name, request.server)))
+        val entity = memberService.save(Member(name = request.name, server = request.server))
 
         return ServerResponse.ok().body(fromProducer(entity, Member::class.java))
     }
