@@ -24,10 +24,10 @@ class XIVApiDataFetchService {
             .bodyToMono(CharacterLodestoneSearchResponse::class.java)
             .map { it.results[0] }
             .doOnSuccess { response -> mapLodestoneDetails(member, response) }
-            .flatMap { fetchAndMapCharacterDetails(it.id, member) }
+            .flatMap { fetchAndMapCharacterClassDetails(it.id, member) }
     }
 
-    fun fetchAndMapCharacterDetails(characterId: Int, member: Member): Mono<Unit> {
+    fun fetchAndMapCharacterClassDetails(characterId: Int, member: Member): Mono<Unit> {
         return getWebClient()
             .get()
             .uri(XIV_CHARACTER_DETAILS_ENDPOINT.format(characterId))
