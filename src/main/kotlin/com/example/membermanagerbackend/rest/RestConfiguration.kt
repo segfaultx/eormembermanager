@@ -13,8 +13,8 @@ class RestConfiguration(private val membersRestHandler: MembersRestHandler, priv
 
     @Bean
     fun routes() = router {
-        GET("/api").invoke(membersRestHandler::getMembers)
-        POST("/api") {
+        GET("/api/members").invoke(membersRestHandler::getMembers)
+        POST("/api/members") {
             it.bodyToMono(MemberCreationRequest::class.java)
                 .doOnSuccess{ mappedRequest -> validator.validate(mappedRequest) }
                 .flatMap(membersRestHandler::createMember)
