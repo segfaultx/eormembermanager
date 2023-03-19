@@ -17,6 +17,9 @@ spec:
           image: myapp
           ports:
             - containerPort: 8080
+          env:
+            - name: spring.data.mongodb.host
+              value: mongo-service
 ---
 apiVersion: v1
 kind: Service
