@@ -14,7 +14,7 @@ docker_build(
     dockerfile='./MemberManagerBackend/Dockerfile'
 )
 
-k8s_yaml('MemberManagerBackend/app_deployment.yaml')
+k8s_yaml('deployments/app_deployment.yaml')
 
 k8s_resource(
     'member-manager-deployment',
@@ -23,7 +23,7 @@ k8s_resource(
     resource_deps=['myapp-resource']
 )
 
-k8s_yaml('MemberManagerBackend/db_deployment.yaml')
+k8s_yaml('deployments/db_deployment.yaml')
 
 k8s_resource(
     'member-manager-db-deployment',
