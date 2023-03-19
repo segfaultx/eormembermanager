@@ -10,5 +10,12 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
+  app_container:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - "mongodb_container:database"
+
 volumes:
   mongodb_data_container:
