@@ -16,7 +16,8 @@ class MembersRestHandler(private val memberService: MemberService) {
     }
 
     fun createMember(request: MemberCreationRequest): Mono<ServerResponse> {
-        val entity = memberService.save(Member(name = request.name, server = request.server))
+        val entity =
+            memberService.save(Member(name = request.name, server = request.server, joinedDate = request.joinedDate))
 
         return ServerResponse.ok().body(fromProducer(entity, Member::class.java))
     }
