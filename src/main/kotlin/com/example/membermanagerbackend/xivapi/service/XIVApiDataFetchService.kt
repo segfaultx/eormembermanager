@@ -3,6 +3,7 @@ package com.example.membermanagerbackend.xivapi.service
 import com.example.membermanagerbackend.members.model.Member
 import com.example.membermanagerbackend.members.model.MemberJobInfo
 import com.example.membermanagerbackend.members.model.XIVClass
+import com.example.membermanagerbackend.members.model.XIVClassType
 import com.example.membermanagerbackend.xivapi.model.*
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
@@ -45,7 +46,9 @@ class XIVApiDataFetchService {
         member.jobInfos.clear()
         classDetails.classJobs.forEach { jobInfo ->
             run {
-                member.jobInfos.add(MemberJobInfo(XIVClass.fromString(jobInfo.unlockedState.name), jobInfo.level))
+                val xivClass = XIVClass.fromString(jobInfo.unlockedState.name)
+                val xivClassType = XIVClassType.fromXIVClass(xivClass)
+                member.jobInfos.add(MemberJobInfo(xivClass, jobInfo.level, xivClassType))
             }
         }
     }
