@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-manager-db-deployment
+spec:
+  selector:
+    matchLabels:
+      app: memberdb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: memberdb
+    spec:
+      containers:
+        - name: member-db
+          image: mongo
+          ports:
+            - containerPort: 27017
+              name: memberdb
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: rootpassword
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  labels:
+    run: mongo-service
+spec:
+  ports:
+    - port: 27017
+      protocol: TCP
+      targetPort: 27017
+  selector:
+    app: memberdb
+  clusterIP: None
