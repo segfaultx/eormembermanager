@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://member-manager-service:8080/api/member",
+    "target": "http://localhost:8080",
     "secure": false
   }
 }

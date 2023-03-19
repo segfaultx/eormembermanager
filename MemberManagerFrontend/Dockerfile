@@ -1,10 +1,11 @@
-FROM node:18-buster-slim
+FROM node:18-buster-slim as node
 
 WORKDIR /app
 
 COPY . .
 
 RUN npm install
+RUN npm run build
 
-ENTRYPOINT ["npm", "run", "start"]
-
+FROM nginx:alpine
+COPY --from=node /app/dist/member-manager-frontend /usr/share/nginx/html

@@ -30,3 +30,17 @@ k8s_resource(
     port_forwards='27017:27017',
     labels=['mongodb']
 )
+
+docker_build(
+    'myapp-frontend',
+    context='./MemberManagerFrontend',
+    dockerfile='./MemberManagerFrontend/Dockerfile'
+)
+
+k8s_yaml('deployments/frontend_deployment.yaml')
+
+k8s_resource(
+       'member-manager-frontend-deployment',
+       port_forwards='4200:80',
+       labels=['frontend']
+)
