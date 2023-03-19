@@ -1,0 +1,6 @@
+{
+  "/api/*": {
+    "target": "https://member-manager-service:8080/api/member",
+    "secure": false
+  }
+}

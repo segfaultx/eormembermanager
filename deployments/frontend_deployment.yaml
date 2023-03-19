@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: member-manager-frontend-deployment
+spec:
+  selector:
+    matchLabels:
+      app: member_manager_frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: member_manager_frontend
+    spec:
+      containers:
+        - name: myapp-frontend
+          image: myapp-frontend
+          ports:
+            - containerPort: 4200
+              name: frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: member-manager-frontend-service
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: api-port
+  selector:
+    app: member_manager_frontend
+  type: NodePort
