@@ -17,6 +17,9 @@ spec:
           image: myapp
           ports:
             - containerPort: 8080
+              name: api-port
+            - containerPort: 5005
+              name: debug-port
           env:
             - name: spring.data.mongodb.host
               value: mongo-service
@@ -30,6 +33,7 @@ spec:
     - port: 8080
       targetPort: 8080
       protocol: TCP
+      name: api-port
   selector:
     app: member_manager
   type: NodePort
