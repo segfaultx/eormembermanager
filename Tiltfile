@@ -3,7 +3,7 @@ version_settings(constraint='>=0.22.2')
 local_resource(
   'myapp-resource',
   'cd MemberManagerBackend &&' +
-  './gradlew bootJar',
+  './gradlew clean bootJar',
   deps=['MemberManagerBackend/src', 'build.gradle'],
   labels=['bootJar-resource']
  )
